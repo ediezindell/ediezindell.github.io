@@ -1,0 +1,8 @@
+#app {
+  display: block;
+  margin: 0 auto;
+}
+
+#timer-list {
+  display: flex;
+}

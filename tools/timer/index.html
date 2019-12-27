@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Timer</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <center>
+    <table>
+      <thead>
+        <tr>
+          <th>id</th>
+          <th>project name</th>
+          <th>counter</th>
+          <th>timer</th>
+          <th>start/end</th>
+          <th>clear</th>
+          <th>delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in projects" v-bind:key="item.id">
+          <th>{{ item.id }}</th>
+          <th>{{ item.project_name }}</th>
+          <th>{{ item.totalSec }}</th>
+          <th>{{ item.dispTime }}</th>
+          <th>
+            <button v-on:click="doChangeState(item)">
+              {{ buttonLabel[item.state] }}
+            </button>
+          </th>
+          <th>
+            <button class="clearBtn" v-on:click.ctrl="doClear(item)">
+              clear
+            </button>
+          </th>
+          <th>
+            <button class="deleteBtn" v-on:click.ctrl="doRemove(item)">
+              delete
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+    <hr>
+    <p>Add Project</p>
+    <form class="add-form" v-on:submit.prevent="doAdd">
+      Project name <input type="text" ref="project_name" placeholder="project name" required>
+      <button type="submit">
+        Add
+      </button>
+    </form>
+    <template v-if="histories.length > 0">
+      <hr>
+      <p>Histories</p>
+      <button v-on:click.ctrl="allHistoryClear()">clear</button>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>project name</th>
+            <th>type</th>
+            <th>timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in histories" v-bind:key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.project_name }}</td>
+            <td>{{ buttonLabel[item.type] }}</td>
+            <td>{{ item.created_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+  </center>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
