@@ -1,0 +1,208 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Excelから表をコピペすると、BacklogやMarkdownにそのまま貼り付けできる形式に変換するフォームです。アドオンの追加やアプリケーションのインストールなどが不要でWebブラウザのみで変換できます。" /><meta name="rating" content="General" />
+
+	<title>Excelの表をBacklog/Markdown形式に変換するjsフォーム</title>
+
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link type="text/css" href="css/bootstrap.custom.css" rel="stylesheet" />
+	<link type="text/css" href="css/base.css" rel="stylesheet" />
+
+	<script src="js/jquery-1.12.1.min.js"></script>
+	<script type="text/javascript" src="js/excel2backlog.js"></script>
+</head>
+
+
+
+<body>
+
+	<form name="f1">
+
+		<!-- container start -->
+		<div class="container">
+
+			<div class="row siteheader">
+				<div class="col-xs-12">
+					<div class="row">
+						<div class="col-xs-12">
+							<h1>Excelの表をBacklogやMarkdown形式に変換するjsフォーム</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+			<!-- container row start -->
+			<div class="row">
+				<div class="col-xs-12">
+					Excelの表をコピーして張り付けると、BacklogやMarkdownの表形式に変換します。
+				</div>
+
+				<!-- sm以上で左サイドバー表示 start -->
+				<div class="col-xs-12 col-sm-9">
+					<!-- textarea1 start -->
+					<div class="row">
+						<div class="col-xs-12">
+							<h2>Excelのセルをコピペしてください</h2>
+							<textarea class="tarea cnv maxfield inputfield form-control tabTextArea" name="t1" cols="80" rows="10">
+地域	天気	気温
+札幌	晴れ	17
+東京	雨	20
+大阪	曇り	19
+福岡	晴れ	24</textarea>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="col-xs-6">
+									<div class="row">
+										<div class="h3_contents" style="display: none;">
+											<label><input class="cnv m1" name="m1" type="checkbox">Backlog記法にする</label>
+										</div>
+									</div>
+								</div>
+
+								<!--
+								<div class="col-xs-6">
+									<div class="row">
+										<div class="h3_contents checkbox">
+											配置：
+											<label><input class="cnv mdp" name="mdpr" type="radio" checked>左寄せ</label>
+											<label><input class="cnv mdp" name="mdpr" type="radio">真ん中</label>
+											<label><input class="cnv mdp" name="mdpr" type="radio">右寄せ</label>
+										</div>
+									</div>
+								</div>
+								-->
+
+							</div>
+						</div>
+						<!--
+						<div class="text-center">
+						<input type="button" class="btn btn-xs btn-success" id="open_option" value="詳細オプションを開く">
+						</div>
+						-->
+					</div>
+
+					<!-- hidden area start -->
+					<div class="row h2_contents" id="view_option">
+
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="h3_contents radio">
+									配置：
+									<label><input class="cnv mdp" name="mdpr" type="radio" checked>左寄せ</label>
+									<label><input class="cnv mdp" name="mdpr" type="radio">真ん中</label>
+									<label><input class="cnv mdp" name="mdpr" type="radio">右寄せ</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="h3_contents">
+									空セル：空のセルをこの文字で置き換える：
+									<input class="cnv" type="text" value="　" name="rep" style="width:4em">
+									※デフォルトは全角スペース
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="h3_contents">
+									改行　：この文字数で強制的に改行する　：
+									<input class="cnv tl" name="n1" type="number" min="0" size="4" value="0" style="width: 4em;text-align: right;">
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12" style="display: none;">
+							<div class="row">
+								<div class="h3_contents checkbox">
+									セル結合：
+									<label><input class="cnv tl" name="r1" type="radio" checked>結合しない</label>
+									<label><input class="cnv tl" name="r1" type="radio">空のセルを右のセルと結合</label>
+									<label><input class="cnv tl" name="r1" type="radio">空のセルを上のセルと結合</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="h3_contents radio">
+									見出し：
+									<label><input class="cnv tl" name="c2" type="checkbox" checked>先頭行をboldにする</label>
+									<label><input class="cnv tl" name="c1" type="checkbox">先頭列をboldにする</label>
+									※Markdown形式では使えません
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- hidden area end -->
+
+
+					<!-- button -->
+					<div class="row">
+						<div class="col-xs-12 text-center">
+							<input class="cnv btn btn-lg btn-primary maxfield" name="b1" type="button" value="convert">
+						</div>
+
+						<div class="col-xs-12">
+							<div class="visible-xs hidden-sm">
+
+							</div>
+							Backlog
+							<textarea class="tarea maxfield inputfield form-control" name="t2" cols="80" rows="10">
+							</textarea>
+							Markdown
+							<textarea class="tarea maxfield inputfield form-control" name="t3" cols="80" rows="10">
+							</textarea>
+						</div>
+					</div>
+					<!-- button -->
+
+				</div>
+				<!-- sm以上で左サイドバー表示 start -->
+
+				<!-- right side bar start -->
+				<div class="hidden-xs col-sm-3">
+					<div class="row">
+						<div class="col-xs-12">
+
+						</div>
+					</div>
+
+				</div>
+				<!-- right side bar end -->
+
+			</div>
+			<!-- container row end -->
+		</div>
+		<!-- container end -->
+
+		<!-- dummy -->
+		<input type="text" name="dummy" style="display:none;">
+
+	</form>
+
+
+	<script src="js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

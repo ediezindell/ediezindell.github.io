@@ -1,0 +1,45 @@
+h1 {
+	font-size:1.6em;
+	font-weight:bold;
+}
+
+h2 {
+	font-size:1.2em;
+  margin-bottom: 0.5em;
+  padding: 5px 0 5px 5px;
+  border-left: 10px solid #F90;
+  border-right: 10px solid #F90;
+  border-top: 1px solid #F90;
+  border-bottom: 1px solid #F90;
+	background-color: #FD8;
+}
+
+h3,h4,h5 {
+  font-size: 1.1em;
+	margin-top: 0.5em;
+  margin-bottom: 1em;
+  margin-left: 0.5em;
+	font-weight: bold;
+  padding: 5px 0 5px 5px;
+  border-left: 6px solid #F90;
+  border-bottom: 1px solid #F90;
+}
+
+.no-gutter > [class*='col-'] {
+	padding-right: 0;
+	padding-left: 0;
+}
+
+/*
+@media screen and (min-width: 480px) {
+	.container {
+		min-width:auto;
+	}
+}
+
+@media screen and (min-width: 481px) {
+	.container {
+		width:980px;
+	}
+}
+*/

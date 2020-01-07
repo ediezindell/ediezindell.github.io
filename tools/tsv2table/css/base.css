@@ -1,0 +1,80 @@
+body {
+  font-family:'Lucida Grande', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Meiryo, メイリオ, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+.footer {
+	margin: 50px 0;
+	background-color: #FD8;
+}
+
+.siteheader {
+	/* background-color: #FD8; */
+}
+
+.gnavi {
+	background-color: #7B6313;
+	font-weight:bold;
+}
+
+.linkbutton {
+	text-decoration:underline;
+	line-height: 30px;
+	border-color:#00F;
+	color:#00F;
+}
+
+.linkbutton:hover {
+	border-color:#F80;
+	color:#F80;
+	text-decoration:underline;
+}
+
+
+.message_error {
+	color:#ff4444;
+}
+
+.message_success {
+	color:#4444ff;
+}
+
+.input_error {
+	outline: 0;
+	border-color: #a94442;
+	background-color: #f2dede;
+}
+
+.input_success {
+	outline: 0;
+	border-color: #337ab7;
+	background-color: #d9edf7;
+}
+
+.maxfield {
+	width:100%;
+}
+
+.h2_contents {
+	margin-left: 0.8em;
+}
+
+.h3_contents {
+	margin-left: 1.1em;
+}
+
+.required_text {
+  color:#000;
+  background-color:#F08080;
+	padding: 1px;
+	box-shadow: 0px 0px 1px rgb(0, 0, 0);
+}
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
