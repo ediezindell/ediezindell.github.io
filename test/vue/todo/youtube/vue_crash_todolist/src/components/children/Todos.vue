@@ -1,21 +1,28 @@
 <template>
   <div>
-    <transition-group>
-      <div v-bind:key="todo.id" v-for="todo in todos">
-        <TodoItem class="todoitem" v-bind:todo="todo" v-on:del-todo="$emit('del-todo', todo.id)" />
-      </div>
-    </transition-group>
+    <draggable @end="$emit('update-todo-order')">
+      <transition-group>
+        <div v-bind:key="todo.id" v-for="todo in todos">
+          <TodoItem class="todoitem" v-bind:todo="todo" v-on:del-todo="$emit('del-todo', todo.id)" />
+        </div>
+      </transition-group>
+    </draggable>
   </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable';
 import TodoItem from '@/components/children/TodoItem.vue';
+
 export default {
   name: "Todos",
   components: {
-    TodoItem
+    draggable,
+    TodoItem,
   },
   props: ["todos"],
+  methods: {
+  },
 }
 </script>
 

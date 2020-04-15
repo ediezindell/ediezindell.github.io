@@ -5,7 +5,7 @@
     </header>
     <div id="todolist">
       <AddTodo v-on:add-todo="addTodo" />
-      <Todos v-bind:todos="yetDoneTodos" v-on:del-todo="deleteTodo"/>
+      <Todos v-bind:todos="yetDoneTodos" v-on:del-todo="deleteTodo" v-on:update-todo-order="updateTodoOrder" />
       <div class="btn_wrapper">
         <button id="propBtn" @click="propDone">完了したTODOを{{propMsg}}</button>
       </div>
@@ -34,38 +34,85 @@ export default {
     DoneTodos,
     AddTodo,
   },
+  watch: {
+    // todos: {
+    //   handler: function(beforetodos, aftertodos) {
+    //     let todos = aftertodos.map(function(item, index) {
+    //       let ret = item;
+    //       ret.order_by = index;
+    //       return ret;
+    //     })
+    //     this.todos = todos;
+    //   },
+    // }
+  },
   computed: {
     yetDoneTodos: function() {
-      return this.todos.filter(todo => !todo.completed);
+      return this.todos.filter(todo => !todo.completed).sort(
+        function(a, b) {
+          let r = 0;
+          if( a.order_by < b.order_by ){
+            r = -1;
+          }else if( a.order_by > b.order_by ){
+            r = 1;
+          }
+          return r; // 昇順
+        }
+      );
     },
     doneTodos: function() {
-      return this.todos.filter(todo => todo.completed);
+      return this.todos.filter(todo => todo.completed).sort(        function(a, b) {
+          let r = 0;
+          if( a.updated_at < b.updated_at ){
+            r = -1;
+          }else if( a.updated_at > b.updated_at ){
+            r = 1;
+          }
+          return -1 * r; // 降順
+        }
+      );
     },
     propMsg: function() {
       return this.showDone ? '非表示にする' : '表示';
     }
   },
   methods: {
+    updateTodoOrder() {
+      let todos = this.todos.map(function(item, index) {
+        let ret = item;
+        ret.order_by = index;
+        return ret;
+      })
+      this.todos = todos;
+      this.todos.map(function(item, index) {
+        console.log({
+          title: item.title,
+          index: index,
+          order: item.order_by
+        });
+      });
+    },
     deleteTodo(id) {
       console.log('delete: ' + id);
 
-      axios.delete(
-        `https://jsonplaceholder.typicode.com/todos/${id}`)
-          .then(res => this.todos = this.todos.filter(todo => todo.id !== id))
-          .catch(err => console.log(err));
+      // axios.delete(
+      //   `https://jsonplaceholder.typicode.com/todos/${id}`)
+      //     .then(res => this.todos = this.todos.filter(todo => todo.id !== id))
+      //     .catch(err => console.log(err));
+      this.todos.filter(todo => todo.id !== id);
     },
     addTodo(newTodo) {
       console.log(newTodo);
       const {title, completed} = newTodo;
-      axios.post(
-        'https://jsonplaceholder.typicode.com/todos',
-        {
-          title,
-          completed,
-        }
-      )
-        .then(res => this.todos = [...this.todos, res.data])
-        .catch(err => console.log(err));
+      // axios.post(
+      //   'https://jsonplaceholder.typicode.com/todos',
+      //   {
+      //     title,
+      //     completed,
+      //   }
+      // )
+      //   .then(res => this.todos = [...this.todos, res.data])
+      //   .catch(err => console.log(err));
     },
     propDone() {
       this.showDone = !this.showDone;
@@ -79,32 +126,44 @@ export default {
       {
         id: 1,
         title: "TODO1",
-        completed: false,
+        completed: true,
+        order_by: 1,
+        updated_at: new Date().getTime() + 10,
       },
       {
         id: 2,
         title: "TODO2",
         completed: true,
+        order_by: 3,
+        updated_at: new Date().getTime() + 4,
       },
       {
         id: 3,
         title: "TODO3",
-        completed: false,
+        completed: true,
+        order_by: 2,
+        updated_at: new Date().getTime() + 120,
       },
       {
         id: 4,
         title: "TODO4",
         completed: true,
+        order_by: 4,
+        updated_at: new Date().getTime() + 11,
       },
       {
         id: 5,
         title: "TODO5",
         completed: false,
+        order_by: 6,
+        updated_at: new Date().getTime() + 1,
       },
       {
         id: 6,
         title: "TODO6",
         completed: true,
+        order_by: 5,
+        updated_at: new Date().getTime(),
       },
     ];
   },

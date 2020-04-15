@@ -1,11 +1,15 @@
 <template>
   <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
-    <label>
-      <input type="checkbox" v-model="todo.completed">
-      {{todo.title}}
-      <button @click="$emit('del-todo', todo.id); showLoading(todo.id);" class="del">
-        <i class="fa fa-trash"></i>
-      </button>
+    <label @click="updateTodo(todo)">
+      <span class="left-item">
+        <input type="checkbox" v-model="todo.completed">
+      </span>
+      <span class="center-item">{{todo.title}}</span>
+      <span class="right-item">
+        <button v-confirm="deleteDialog(todo.id, todo.title)" class="del">
+          <i class="fa fa-trash"></i>
+        </button>
+      </span>
     </label>
   </div>
 </template>
@@ -15,10 +19,34 @@ export default {
   name: "TodoItem",
   props: ["todo"],
   methods: {
-    showLoading(id) {
-      console.log(id);
+    deleteDialog(id, title) {
+      let self = this;
+      console.log('?');
+      return {
+        loader: true,
+        html: true,
+        ok: function(dialog) {
+          console.log('delete');
+          setTimeout(function() {
+            self.$emit('del-todo', id);
+            console.log('deleted: ' + id);
+            dialog.close();
+          }, 100);
+        },
+        cancel: function(dialog) {
+          console.log('cancel');
+          dialog.close();
+        },
+        message: {
+          title: '削除',
+          body: '「' + title + '」を削除しますか？',
+        }
+      }
     },
-  }
+    updateTodo(todo) {
+      todo.updated_at = new Date().getTime();
+    }
+  },
 }
 </script>
 
@@ -26,10 +54,12 @@ export default {
 @import 'https://use.fontawesome.com/releases/v5.6.1/css/all.css';
 
 .todo-item {
-  padding: 10px;
+  height: 40px;
+  line-height: 40px;
   background-color: #fff;
   border-bottom: 1px #ccc dotted;
   user-select: none;
+  border-radius: 5px;
 }
 .todo-item,
 .todo-item label {
@@ -42,10 +72,8 @@ export default {
   background-color: #ddd;
 }
 .del {
-  border: none;
-  padding: 5px 9px;
+  padding: 5px;
   cursor: pointer;
-  float: right;
   border: 1px #ccc dotted;
   background-color: #fff;
 }
