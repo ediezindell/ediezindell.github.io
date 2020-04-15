@@ -16,6 +16,7 @@ body {
 }
 #time {
   font-size: 8rem;
+  font-family: 'Inconsolata', 'Quicksand', sans-serif;
 }
 h1 {
   margin-bottom: 3rem;

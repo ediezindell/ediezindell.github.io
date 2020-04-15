@@ -1,0 +1,13 @@
+#app {
+  display: block;
+  margin: 0 auto;
+  --background-color: #fff;
+  background-color: var(--background-color);
+  color: #000;
+  color: var(--color);
+}
+
+td [colspan="2"] {
+  padding: auto;
+  text-align: center;
+}

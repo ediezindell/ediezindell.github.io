@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>Color Checker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <center :style="styles">
+    <p>Color Checker</p>
+    <form class="add-form" v-on:submit.prevent="doChange">
+      <table>
+        <tr>
+          <td>
+            Background Color
+          </td>
+          <td>
+            <input type="text" ref="bg_color" placeholder="#fff" required v-model="bg_color">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Color
+          </td>
+          <td>
+            <input type="text" ref="color" placeholder="#000" required v-model="color">
+          </td>
+      </table>
+      <button type="submit">
+        Submit
+      </button>
+    </form>
+    <template v-if="histories.length > 0">
+      <hr>
+      <p>Histories</p>
+      <button v-on:click.ctrl="allHistoryClear()">clear</button>
+      <table>
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>bg_color</th>
+            <th>color</th>
+            <th>timestamp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in reverseHistories" v-bind:key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.bg_color }}</td>
+            <td>{{ item.color }}</td>
+            <td>{{ item.created_at }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </template>
+  </center>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
