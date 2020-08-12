@@ -1,16 +1,16 @@
 <template>
   <div class="todo-item" v-bind:class="{'is-complete':todo.completed}">
-    <label @click="updateTodo(todo)">
-      <span class="left-item">
-        <input type="checkbox" v-model="todo.completed">
-      </span>
-      <span class="center-item">{{todo.title}}</span>
-      <span class="right-item">
-        <button v-confirm="deleteDialog(todo.id, todo.title)" class="del">
-          <i class="fa fa-trash"></i>
-        </button>
-      </span>
+    <label @click="updateTodo(todo)" class="left-item">
+      <input type="checkbox" v-model="todo.completed">
     </label>
+    <router-link id="editLink" class="center-item" tag="span" :to="{name: 'Edit', params: {id: 1}}" replace>
+        {{todo.title}}
+    </router-link>
+    <span class="right-item">
+      <button v-confirm="deleteDialog(todo.id, todo.title)" class="del">
+        <i class="fa fa-trash"></i>
+      </button>
+    </span>
   </div>
 </template>
 
@@ -21,7 +21,6 @@ export default {
   methods: {
     deleteDialog(id, title) {
       let self = this;
-      console.log('?');
       return {
         loader: true,
         html: true,
@@ -51,31 +50,33 @@ export default {
 </script>
 
 <style scoped>
-@import 'https://use.fontawesome.com/releases/v5.6.1/css/all.css';
-
 .todo-item {
   height: 40px;
   line-height: 40px;
   background-color: #fff;
-  border-bottom: 1px #ccc dotted;
   user-select: none;
   border-radius: 5px;
-}
-.todo-item,
-.todo-item label {
   cursor: pointer;
-  display: block;
 }
 
 .is-complete {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.is-complete span {
   text-decoration: line-through;
-  background-color: #ddd;
 }
 .del {
   padding: 5px;
   cursor: pointer;
   border: 1px #ccc dotted;
-  background-color: #fff;
+  background-color: rgba(0, 0, 0, 0);
 }
-
+#editLink {
+  padding: 10px 0;
+}
+</style>
+<style>
+.sortable-ghost > .todo-item {
+  visibility: hidden;
+}
 </style>

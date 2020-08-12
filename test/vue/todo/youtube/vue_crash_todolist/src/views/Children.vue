@@ -1,7 +1,13 @@
 <template>
   <div id="contents">
     <header class="header">
-      <router-link to="/">Home</router-link>
+      <router-link to="/" id="backBtn">&lt;</router-link>
+      <span id="folder_title">
+        {{this.title}}
+      </span>
+      <button id="editBtn">
+        編集
+      </button>
     </header>
     <div id="todolist">
       <AddTodo v-on:add-todo="addTodo" />
@@ -18,13 +24,14 @@
 import Todos from '@/components/children/Todos.vue';
 import DoneTodos from '@/components/children/Todos.vue';
 import AddTodo from '@/components/children/AddTodo.vue';
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   name: 'Children',
   props: ["id"],
   data () {
     return {
+      title: '',
       todos: [],
       showDone: false,
     }
@@ -33,18 +40,6 @@ export default {
     Todos,
     DoneTodos,
     AddTodo,
-  },
-  watch: {
-    // todos: {
-    //   handler: function(beforetodos, aftertodos) {
-    //     let todos = aftertodos.map(function(item, index) {
-    //       let ret = item;
-    //       ret.order_by = index;
-    //       return ret;
-    //     })
-    //     this.todos = todos;
-    //   },
-    // }
   },
   computed: {
     yetDoneTodos: function() {
@@ -78,19 +73,19 @@ export default {
   },
   methods: {
     updateTodoOrder() {
-      let todos = this.todos.map(function(item, index) {
-        let ret = item;
-        ret.order_by = index;
-        return ret;
-      })
-      this.todos = todos;
-      this.todos.map(function(item, index) {
-        console.log({
-          title: item.title,
-          index: index,
-          order: item.order_by
-        });
-      });
+      // let todos = this.todos.map(function(item, index) {
+      //   let ret = item;
+      //   ret.order_by = index;
+      //   return ret;
+      // })
+      // this.todos = todos;
+      // this.todos.map(function(item, index) {
+      //   console.log({
+      //     title: item.title,
+      //     index: index,
+      //     order: item.order_by
+      //   });
+      // });
     },
     deleteTodo(id) {
       console.log('delete: ' + id);
@@ -103,7 +98,7 @@ export default {
     },
     addTodo(newTodo) {
       console.log(newTodo);
-      const {title, completed} = newTodo;
+      // const {title, completed} = newTodo;
       // axios.post(
       //   'https://jsonplaceholder.typicode.com/todos',
       //   {
@@ -122,6 +117,7 @@ export default {
     // axios.get('https://jsonplaceholder.typicode.com/todos?_limit=10')
     //   .then(res => this.todos = res.data)
     //   .catch(err => console.log(err))
+    this.title = '買い物リスト(日用品、食料品)'
     this.todos = [
       {
         id: 1,
@@ -201,7 +197,15 @@ export default {
 #todolist {
   padding: 8px;
 }
-#contents {
-  background-color: #ca2;
+header {
+  width: 100%;
+}
+#backBtn {
+  float: left;
+}
+#editBtn {
+  float: right;
+  color: white;
+  font-size: 80%;
 }
 </style>

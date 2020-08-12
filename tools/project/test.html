@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>変換</title>
+  <style>
+    body {
+      width: 80%;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 30%;
+    }
+    input[type=text] {
+      font-size: 12px;
+      padding: 1em;
+      width: 500px;
+      background-color: transparent;
+      border: 1px solid #88c;
+      border-radius: 2px;
+    }
+    input[type=text]::placeholder {
+      font-size: 12px;
+      color: #88c;
+    }
+    input[type=submit] {
+      font-size: 12px;
+      padding: .8em;
+      width: 90px;
+      background-color: transparent;
+      color: #88c;
+      border: 1px solid #88c;
+      border-radius: 2px;
+    }
+  </style>
+</head>
+<body>
+  <input type="text" id="input" value="" placeholder="Tue Jun 09 2020 11:35:08 GMT+0900 (日本標準時)" onchange="henkan()">
+  <input type="submit" value="変換" onclick="henkan()"><br>
+  <input type="text" id="result" value="" placeholder="結果">
+  <input type="submit" id="copyButton" value="コピー" onclick="copy()"><br>
+
+  <script>
+    let resultText = document.getElementById('result');
+
+    function henkan() {
+      // Tue Jun 09 2020 11:35:08 GMT+0900 (日本標準時)
+      let monthMap = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      let str = document.getElementById("input").value;
+
+      let result = str.trim().match(/^[A-Za-z]{3} ([A-Za-z]{3}) (\d{2}) (\d{4}) (\d{2}):(\d{2}):(\d{2}) GMT\+0900 \(日本標準時\)$/i);
+      let m = monthMap.indexOf(result[1]) + 1;
+      if (m < 10) m = '0' + m;
+      let d = result[2];
+      let y = result[3];
+      let h = result[4];
+      let i = result[5];
+      let s = result[6];
+      let dispTime = `${y}-${m}-${d} ${h}:${i}:${s}`;
+      // console.log(dispTime);
+      document.getElementById("result").value = dispTime;
+
+      if(execCopy(resultText.value)){
+        alert('結果をクリップボードにコピーしました');
+      }
+      else {
+        alert('このブラウザでは対応していません');
+      }
+      return false;
+
+    }
+
+    function execCopy(string){
+      var temp = document.createElement('div');
+
+      temp.appendChild(document.createElement('pre')).textContent = string;
+
+      var s = temp.style;
+      s.position = 'fixed';
+      s.left = '-100%';
+
+      document.body.appendChild(temp);
+      document.getSelection().selectAllChildren(temp);
+
+      var result = document.execCommand('copy');
+
+      document.body.removeChild(temp);
+      // true なら実行できている falseなら失敗か対応していないか
+      return result;
+    }
+
+    var button = document.getElementById('copyButton');
+    button.onclick = function(){
+      if(execCopy(resultText.value)){
+        alert('クリップボードにコピーしました');
+      }
+      else {
+        alert('このブラウザでは対応していません');
+      }
+      return false;
+    };
+  </script>
+
+</body>
+</html>

@@ -16,9 +16,9 @@ Vue.use(VueRouter)
     component: () => import('@/views/Children.vue')
   },
   {
-    path: '/detail',
-    name: 'Detail',
-    component: () => import('@/views/Detail.vue')
+    path: '/edit/:id',
+    name: 'Edit',
+    component: () => import('@/views/Edit.vue')
   },
 ]
 

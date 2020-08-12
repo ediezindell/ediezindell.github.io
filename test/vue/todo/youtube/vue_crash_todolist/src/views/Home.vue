@@ -2,9 +2,6 @@
   <div id="app">
     <header class="header">
       <h1>TodoList</h1>
-      <div id="nav">
-        <!-- <router-link to="/">Home</router-link> -->
-      </div>
     </header>
     <transition-group>
       <div v-bind:key="folder.id" v-for="folder in folders">
@@ -16,16 +13,16 @@
 </template>
 
 <script>
-import Header from '@/components/layout/Header.vue';
+// import Header from '@/components/layout/Header.vue';
 import Folders from '@/components/home/Folders.vue';
-import AddFolder from '@/components/home/AddFolder.vue';
+// import AddFolder from '@/components/home/AddFolder.vue';
 // import axios from 'axios';
 
 export default {
   name: 'Home',
   components: {
     Folders,
-    Header,
+    // Header,
     // AddFolder,
   },
   data() {

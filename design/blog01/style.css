@@ -1,0 +1,336 @@
+:root {
+  /* --main-color: #fdfbfc;
+  --sub-color: #008094; */
+  --main-color: #ffffff;
+  --sub-color: #aacccc;
+  --sub-color-2: #ccffff;
+  --text-color: #666666;
+  --bg-color: #ffffff;
+  --link-color: #ff8888;
+  --twitter-main: #1da1f2;
+  --google-main: #dc4a3d;
+  --github-main: #1a1414;
+}
+i.fab {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+a {
+  color: var(--link-color);
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--link-color);
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all  0.3s ease;
+}
+html, body, #wrapper {
+  min-height: 100%;
+  height: 100%;
+  padding-bottom: auto;
+}
+body {
+  /* font-family: 'Hiragino Kaku Gothic Pro', 'ヒラギノ角ゴ Pro W3', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', sans-serif; */
+  /* font-family: 'Hiragino Kaku Gothic Pro','ヒラギノ角ゴ Pro W3','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif; */
+  /* font-family: "Montserrat","游ゴシック",YuGothic,"ヒラギノ角ゴ ProN W3","Hiragino Kaku Gothic ProN","メイリオ",Meiryo,sans-serif; */
+  font-family: 'Lato', 'Noto Sans JP', 'ヒラギノ角ゴ ProN', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'MS PGothic', sans-serif;
+
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  min-height: 100%;
+  font-family: 'Kosugi Maru', sans-serif;
+  position: relative;
+}
+#page_title {
+  font-size: 200%;
+  border-bottom: 2px solid var(--sub-color);
+  margin-bottom: 20px;
+}
+#contents {
+  margin: 0 auto;
+  width: 90%;
+  max-width: 780px;
+  padding-bottom: 32px;
+}
+header {
+  background-color: var(--main-color);
+}
+#site_title {
+  font-weight: bold;
+  font-size: 200%;
+  padding: 1em;
+  color: var(--sub-color);
+}
+nav {
+  background-color: var(--main-color);
+  border-top: 4px double var(--sub-color);
+  padding: 0;
+  margin: 0 0 10px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+nav>a {
+  text-decoration: none;
+  text-align: center;
+  padding: .5em 2em 0;
+  border-bottom: 1px solid var(--bg-color);
+  margin: 5px;
+  /* color: var(--sub-color); */
+  color: #888;
+  opacity: 0.6;
+
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+}
+nav>a.active,
+nav>a:hover {
+  opacity: 1;
+  color: var(--sub-color);
+}
+nav>a::after {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: 1px;
+  background: var(--sub-color);
+  transform: scale(0, 1);
+  transform-origin: left top;
+  transition: transform .3s;
+}
+nav>a.active::after {
+  transform: scale(1, 1);
+}
+nav>a:hover::after {
+  transform: scale(1, 1);
+}
+
+#sns-links {
+  height: auto;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+}
+.sns-link {
+  border-radius: 5px;
+  width: calc(50% - 40px);
+  padding: 10px;
+  margin: 10px;
+  text-decoration: none;
+}
+.twitter {
+  border: 1px solid white;
+  background-color: var(--twitter-main);
+  color: white;
+}
+.twitter:hover {
+  border: 1px solid var(--twitter-main);
+  background-color: white;
+  color: var(--twitter-main);
+}
+.google {
+  border: 1px solid white;
+  background-color: var(--google-main);
+  color: white;
+}
+.google:hover {
+  border: 1px solid var(--google-main);
+  background-color: white;
+  color: var(--google-main);
+}
+.github {
+  border: 1px solid white;
+  background-color: var(--github-main);
+  color: white;
+}
+.github:hover {
+  border: 1px solid var(--github-main);
+  background-color: white;
+  color: var(--github-main);
+}
+
+article#blog {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+article#blog section {
+  width: 90%;
+  border-radius: 2px;;
+  padding: 10px;
+  margin: 10px;
+}
+article#blog section h1 {
+  border-left: solid 4px var(--sub-color);
+  border-bottom: solid 1px #ccc;
+  padding-left: .5em;
+  margin-bottom: 10px;
+}
+article#blog .img-wrapper {
+}
+article#blog img {
+  border-radius: 2px;
+}
+.blog_content {
+  max-height: 180px;
+  overflow-y: hidden;
+  margin-bottom: 10px;
+  background: -webkit-linear-gradient(top, black, rgba(128, 128, 128, 0));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.blog_content p {
+  display: inline;
+}
+.date {
+  display: inline-block;
+  padding: 5px;
+  background-color: var(--sub-color);
+  color: var(--bg-color);
+}
+
+article#about {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+article#about section {
+  width: calc(50% - 40px);
+  /* background-color: gray; */
+  border: 1px solid var(--sub-color);
+  border-radius: 2px;;
+  padding: 10px;
+  margin: 10px;
+}
+article#about section h1 {
+  border-left: solid 4px var(--sub-color);
+  border-bottom: solid 1px #ccc;
+  padding-left: .5em;
+  margin-bottom: 10px;
+}
+
+#to_top {
+  border-radius: 10px;
+  padding: 10px;
+  position: fixed;
+  bottom: 33px;
+  right: 10px;
+  color: var(--main-color);
+  background-color: var(--sub-color);
+  border: 1px solid var(--sub-color);
+}
+#to_top:hover {
+  color: var(--sub-color);
+  background-color: var(--main-color);
+}
+
+/* XRIA Footer */
+center {
+  height: 32px;
+  line-height: 32px;
+  width: 100%;
+  /* position: absolute; */
+  /* bottom: 0; */
+  background-color: var(--main-color);
+  border-top: 1px solid var(--sub-color);
+  border-bottom: 1px solid var(--sub-color);
+}
+center>font,
+center>font>a,
+center>font>a:visited {
+  color: var(--sub-color);
+}
+
+
+
+article#snipet section {
+  width: 90%;
+  margin: 0 auto;
+}
+article#snipet section h1 {
+  margin-bottom: 20px;
+  padding: 0.5em;
+}
+
+article#snipet section h1.type1 {
+  border-bottom: solid 2px var(--sub-color);
+}
+article#snipet section h1.type2 {
+  border-bottom: dashed 2px var(--sub-color);
+}
+article#snipet section h1.type3 {
+  border-bottom: double 4px var(--sub-color);
+}
+article#snipet section h1.type4 {
+  border-top: solid 2px var(--sub-color);
+  border-bottom: solid 2px var(--sub-color);
+}
+article#snipet section h1.type5 {
+  background-color: var(--sub-color);
+}
+article#snipet section h1.type6 {
+  border: solid 1px var(--sub-color);
+  border-radius: 10px;
+}
+article#snipet section h1.type7 {
+  border-bottom: solid 3px var(--sub-color);
+  background-color: var(--sub-color-2);
+}
+article#snipet section h1.type8 {
+  border-left: solid 5px var(--sub-color);
+}
+article#snipet section h1.type9 {
+  border-left: solid 5px var(--sub-color);
+  background-color: var(--sub-color-2);
+}
+article#snipet section h1.type10 {
+  border-left: solid 5px var(--sub-color);
+  border-bottom: solid 2px #ccc;
+  background-color: #eee;
+}
+article#snipet section h1.type11 {
+  position: relative;
+  background: var(--sub-color);
+}
+
+article#snipet section h1.type11:after {
+  position: absolute;
+  content: '';
+  top: 100%;
+  left: 30px;
+  border: 15px solid transparent;
+  border-top: 15px solid var(--sub-color);
+  width: 0;
+  height: 0;
+}
+
+article#snipet section h1.type12 {
+  padding-bottom: 0;
+  background: linear-gradient(transparent 70%, var(--sub-color) 70%);
+}
+article#snipet section h1.type13 {
+}
+article#snipet section h1.type14 {
+}
+article#snipet section h1.type15 {
+}
+article#snipet section h1.type16 {
+}
+article#snipet section h1.type17 {
+}
+article#snipet section h1.type18 {
+}
+article#snipet section h1.type19 {
+}
+article#snipet section h1.type20 {
+}

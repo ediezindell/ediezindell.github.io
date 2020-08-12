@@ -3,19 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'" />
+
   <link href="https://fonts.googleapis.com/css?family=Quicksand:wght&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <title>New Tab</title>
+
+  <script type="text/javascript" src="js/weather.js"></script>
+
 </head>
 <body>
   <time id="time"></time>
   <h1>
-    <span id="greeting"></span>,
-    <span id="name" contenteditable="true"></span>!
+    <span id="greeting"></span>!
   </h1>
-  <h2>What Is Your Focus For Today?</h2>
-  <h2 id="focus" contenteditable="true"></h2>
   <script src="js/main.js"></script>
+  <div class="mamewaza_weather">
+    <div>
+      <div class="mamewaza_weather_exp">
+      </div>
+    </div>
+  </div>
 </body>
 </html>

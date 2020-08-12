@@ -4,14 +4,14 @@
       <label for="addTodoForm" class="left-item">
         <span class="plus">+</span>
       </label>
-      <input type="text" v-model="title" id="addTodoForm" class="center-item" name="title" placeholder="Add Todo...">
+      <input type="text" v-model="title" id="addTodoForm" class="center-item" name="title" placeholder="ToDo を追加…">
       <span class="right-item">
-        <label class="star_wrapper" v-bind:class="{'star_checked':star}">
-          <i class="fa fa-star-o"></i>
+        <label class="star_wrapper">
           <input type="checkbox" v-model="star" class="star_btn">
+            <i v-if="star" class="fa fa-star"></i>
+            <i v-else class="fa fa-star-o"></i>
         </label>
       </span>
-      <!-- <input type="submit" value="Submit" class="btn"> -->
     </form>
   </div>
 </template>
@@ -50,6 +50,7 @@ export default {
   width: 10%;
   line-height: 100%;
   /* height: 100%; */
+  padding: auto;
 }
 .left-item,
 .right-item {
@@ -69,18 +70,21 @@ form {
   margin-bottom: 5px;
 }
 .plus {
+  color: #fff;
   background-color: rgba(0, 0, 0, 0);
-  font-size: 150%;
+  font-size: 120%;
   height: 100%;
 }
 #addTodoForm {
-  padding-left: 10px;
+  /* padding-left: 10px; */
   background-color: rgba(0, 0, 0, 0);
   border: none;
   height: 100%;
+  font-size: 100%;
+  color: rgba(255, 255, 255, 0.8)
 }
-.star_wrapper:before {
-  content: '★';
+#addTodoForm::placeholder {
+  color: rgba(255, 255, 255, 0.8)
 }
 .star_wrapper {
   color: #fff;
@@ -91,11 +95,7 @@ form {
 .star_btn {
   display: none;
 }
-.star_checked {
-  color: #f88;
-  /* color: #fff; */
-  /* background-color: #f7c; */
-}
+
 /* .btn {
   flex: 2;
   display: inline-block;
