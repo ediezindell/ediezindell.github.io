@@ -1,9 +1,13 @@
 <template>
-  <div>
-    edit: {{ id }}
-  </div>
+  <main role="main" id="main">
+    <article id="">
+      <section>
+        <h1 id="">edit page</h1>
+        edit: {{ id }}
+      </section>
+    </article>
+  </main>
 </template>
-
 <script lang="ts">
 // import hogehoge from '@/components/hogehoge'
 

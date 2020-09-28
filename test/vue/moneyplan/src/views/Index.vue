@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <main id="main" role="main">
     <input type="text" v-model="dispUntil">
     <button @click="dispChart()">再計算</button>
     <Chart v-if="inputDone" :labels="labels" :datasets="datasets"></Chart>
@@ -200,7 +200,7 @@
     </article>
     <button v-if="!inputDone" @click="dispChart()">再計算</button>
     <button v-if="inputDone" @click="reDispForm()">設定を変更する</button>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -294,6 +294,13 @@ export default {
         type: "line",
         data: [],
         borderColor: "#f00",
+        fill: false,
+      }
+      var gakuhiObj = {
+        label: '学費',
+        type: "line",
+        data: [],
+        borderColor: "#0ff",
         fill: false,
       }
       var incomeObj = {
@@ -406,6 +413,7 @@ export default {
         chochikuObj.data.push(chochiku)
         incomeObj.data.push(income)
         shishutsuObj.data.push(shishutsu)
+        gakuhiObj.data.push(gakuhi)
         shushiObj.data.push(shushi)
         houseLoanObj.data.push(houseLoan)
       }
@@ -416,6 +424,7 @@ export default {
         incomeObj,
         shushiObj,
         houseLoanObj,
+        gakuhiObj,
       ]
       this.inputDone = true
     },

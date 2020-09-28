@@ -1,5 +1,5 @@
 <template>
-  <div id="link-button">
+  <div class="link-button">
     <router-link :to="{name: linkname, params: linkparams}" >
       {{ msg }}
     </router-link>
@@ -49,23 +49,36 @@ export default {
 }
 </script>
 
-<style scoped>
-#link-button {
-  font-size: .8em;
+<style lang="scss" scoped>
+.link-button {
+  font-size: 1.2rem;
+  margin: 0;
+  position: relative;
+  &:before {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    top: 0;
+    right: 15px;
+    display: block;
+  }
+  a {
+    display: inline-block;
+    background-color: var(--sub-color);
+    color: var(--main-color);
+    border: 1px solid transparent;
+    padding: 10px;
+    /* text-decoration: underline; */
+    border-radius: 5px;
+    &:hover {
+      text-decoration: none;
+      color: var(--sub-color);
+      background-color: var(--main-color);
+      border: 1px solid var(--sub-color);
+    }
+  }
 }
-#link-button a {
-  display: inline-block;
-  background-color: var(--sub-color);
-  color: var(--main-color);
-  border: 1px solid transparent;
-  padding: 10px;
-  text-decoration: underline;
-  border-radius: 5px;
-}
-#link-button a:hover {
-  text-decoration: none;
-  color: var(--sub-color);
-  background-color: var(--main-color);
-  border: 1px solid var(--sub-color);
-}
+
 </style>

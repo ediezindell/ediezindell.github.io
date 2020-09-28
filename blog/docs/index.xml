@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>myonBlog</title>
+    <link>http://localhost/</link>
+    <description>Recent content on myonBlog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja-jp</language>
+    <lastBuildDate>Sun, 30 Jun 2019 02:34:27 +0900</lastBuildDate>
+    
+	<atom:link href="http://localhost/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>はじめまして</title>
+      <link>http://localhost/about/</link>
+      <pubDate>Sun, 30 Jun 2019 02:34:27 +0900</pubDate>
+      
+      <guid>http://localhost/about/</guid>
+      <description>Myonのブログ</description>
+    </item>
+    
+    <item>
+      <title>はじめまして</title>
+      <link>http://localhost/posts/first-article/</link>
+      <pubDate>Sun, 30 Jun 2019 02:34:27 +0900</pubDate>
+      
+      <guid>http://localhost/posts/first-article/</guid>
+      <description>Hugoで簡単なブログを作りました。</description>
+    </item>
+    
+  </channel>
+</rss>
