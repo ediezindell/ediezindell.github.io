@@ -1,6 +1,0 @@
-baseURL = "http://localhost/"
-languageCode = "ja-jp"
-title = "myonBlog"
-subtitle = "myonmyon"
-publishDir = "docs"
-logoHomeLink = "/blog"
