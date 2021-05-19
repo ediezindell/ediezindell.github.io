@@ -28,12 +28,12 @@ window.onload = function () {
 	var mamewaza_weather = function (conf) {
 		var root = "https://mamewaza.net/",
 			label2img = {
-				"晴れ": 1, "晴時々曇": 2, "晴時々雨": 3, "晴時々雪": 4, "晴のち曇": 5,
-				"晴のち雨": 6, "晴のち雪": 7, "曇": 8, "曇り": 8, "曇のち時々晴": 9, "曇時々晴": 9, "曇時々雨": 10,
-				"曇時々雪": 11, "曇のち晴": 12, "曇のち雨": 13, "曇一時雨": 10, "曇のち雪": 14, "雨": 15,
-				"雨時々晴": 16, "雨時々曇": 17, "雨時々雪": 18, "雨のち晴": 19, "雨のち曇": 20,
-				"雨のち雪": 21, "暴風雨": 22, "雪": 23, "雪時々晴": 24, "雪時々曇": 25,
-				"雪時々雨": 26, "雪のち晴": 27, "雪のち曇": 28, "雪のち雨": 29, "暴風雪": 30
+				"晴": 1, "晴時々曇": 2, "晴時々雨": 3, "晴時々雪": 4, "晴後曇": 5,
+				"晴後雨": 6, "晴後雪": 7, "曇": 8, "曇り": 8, "曇後時々晴": 9, "曇時々晴": 9, "曇時々雨": 10,
+				"曇時々雪": 11, "曇後晴": 12, "曇後雨": 13, "曇後一時雨": 10, "曇一時雨": 10, "曇後雪": 14, "雨": 15,
+				"雨時々晴": 16, "雨時々曇": 17, "雨時々雪": 18, "雨後晴": 19, "雨後曇": 20,
+				"雨後雪": 21, "暴風雨": 22, "雪": 23, "雪時々晴": 24, "雪時々曇": 25,
+				"雪時々雨": 26, "雪後晴": 27, "雪後曇": 28, "雪後雨": 29, "暴風雪": 30
 			};
 		if (!conf.region || !conf.region.toString().match(/^\d{6}$/)) {
 			return "";
@@ -71,23 +71,23 @@ window.onload = function () {
 								i + '<span class="mamewaza_weather_small">' + d + "</span>"
 								:
 								i + '<span class="mamewaza_weather_small">日(' + d + ")</span>",
-							y = l ?
-								f || p ?
-									f + "～" + p + '<span class="mamewaza_weather_small">℃</span>'
+								y = l ?
+									f || p ?
+										f + "～" + p + '<span class="mamewaza_weather_small">℃</span>'
+										:
+										""
 									:
-									""
-								:
-								a ?
-									'<span class="mamewaza_weather_small">' + h + "</span>"
+									a ?
+										'<span class="mamewaza_weather_small">' + h + "</span>"
+										:
+										h,
+								u = "土" == d ?
+									' class="mamewaza_weather_sat"'
 									:
-									h,
-							u = "土" == d ?
-								' class="mamewaza_weather_sat"'
-								:
-								"日" == d ?
-								' class="mamewaza_weather_sun"'
-								:
-								"";
+									"日" == d ?
+										' class="mamewaza_weather_sun"'
+										:
+										"";
 							t ? (c.col1 += "<td" + u + ">" + g + "</td>",
 								c.col2 += '<td><span class="mamewaza_weather_icon">' + w + "</span><br />" + y + "</td>",
 								a ?
@@ -102,21 +102,21 @@ window.onload = function () {
 									n && (c.col3 += "<td>" + p + "</td>", c.col4 += "<td>" + f + "</td>"))
 								:
 								(s += "<tr><td" + u + ">" + g + "</td><td" + (a ? u : "") + '><span class="mamewaza_weather_icon">' +
-							w + "</span><br />" + y + "</td>", s += l ? "" : a ? "<td" + u + ">" + (f || p ? f + "～" + p + '<span class="mamewaza_weather_small">℃</span>' : "") + "</td>" : "<td>" + p + "</td><td>" + f + "</td>", s += "</tr>"),
-							o++;
+									w + "</span><br />" + y + "</td>", s += l ? "" : a ? "<td" + u + ">" + (f || p ? f + "～" + p + '<span class="mamewaza_weather_small">℃</span>' : "") + "</td>" : "<td>" + p + "</td><td>" + f + "</td>", s += "</tr>"),
+								o++;
 						}
 					}
 				}
 			}
 			t && (s += "<tr>" + c.col1 + "</tr><tr>" + c.col2 + "</tr>" + (c.col3 ? "<tr>" + c.col3 + "</tr>" : "") + (c.col4 ? "<tr>" + c.col4 + "</tr>" : "")), s += "</table>";
-				var _ = document.createElement("span");
-				_.innerHTML = (conf.explanation ? e.channel.description.replace(/[\r?\n]{2}/g, "<br />") : "") + '<a href="' + e.channel.link + '" target="_blank">' + e.channel.title + "</a>";
-				var b = document.getElementsByClassName("mamewaza_weather_exp").item(0);
-				b.insertBefore(_, b.childNodes.item(0)), b.style.display = "block", b.style.display = "inline-block", b.innerHTML = '横浜市の天気';
-				var z = document.createElement("div");
-				z.innerHTML = s;
-				b.appendChild(z);
-			},
+			var _ = document.createElement("span");
+			_.innerHTML = (conf.explanation ? e.channel.description.replace(/[\r?\n]{2}/g, "<br />") : "") + '<a href="' + e.channel.link + '" target="_blank">' + e.channel.title + "</a>";
+			var b = document.getElementsByClassName("mamewaza_weather_exp").item(0);
+			b.insertBefore(_, b.childNodes.item(0)), b.style.display = "block", b.style.display = "inline-block", b.innerHTML = '横浜市の天気';
+			var z = document.createElement("div");
+			z.innerHTML = s;
+			b.appendChild(z);
+		},
 			style_apply = function (e, t, a) {
 				if (!e || !t || !a) return "";
 				if ("function" == typeof a.addRule) {
@@ -125,7 +125,8 @@ window.onload = function () {
 					}
 					for (var c = 0; c < n.length; c++) {
 						if (n[c]) {
-							try { a.addRule(e, n[c], 0)
+							try {
+								a.addRule(e, n[c], 0)
 							} catch (e) {
 
 							}
@@ -162,7 +163,8 @@ window.onload = function () {
 				var d = new Date, callback = "callback" + d.getFullYear().toString() + (d.getMonth() < 9 ? "0" : "") + (d.getMonth() + 1).toString() + (d.getDate() < 10 ? "0" : "") + d.getDate().toString() + Math.floor(d.getHours() / 6).toString();
 				eval(callback + " = function(json) { set(json); }");
 				var script = document.createElement("script");
-				script.setAttribute("src", root + "/w/?area=" + conf.region + "&callback=" + callback), script.type = "text/javascript", document.getElementsByTagName("head").item(0).appendChild(script) };
+				script.setAttribute("src", root + "/w/?area=" + conf.region + "&callback=" + callback), script.type = "text/javascript", document.getElementsByTagName("head").item(0).appendChild(script)
+			};
 		init()
 	};
 
