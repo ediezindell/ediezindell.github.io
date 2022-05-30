@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Color Wallpaper</title>
+    <style>
+      body {
+        text-align: center;
+      }
+      #previewWrap {
+        height: 120px;
+        width: 120px;
+        overflow: hidden;
+        margin: 0 auto;
+        border: 1px solid #333;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <p>choose color</p>
+      <input type="color" id="inputColor" />
+      <span>or</span>
+      <input type="text" id="inputText" placeholder="#123abc" />
+    </div>
+    <div>
+      <p>choose size</p>
+      <select id="size">
+        <option value="{y:1334,x:750}">iPhoneSE2(1334x750)</option>
+      </select>
+    </div>
+    <div>
+      <p>preview</p>
+      <div id="previewWrap">
+        <canvas id="preview"></canvas>
+      </div>
+    </div>
+    <div>
+      <p>download</p>
+      <button type="button" id="download">save image</button>
+    </div>
+
+    <script>
+      const inputColor = document.getElementById("inputColor");
+      const inputText = document.getElementById("inputText");
+      const onChange = function (e) {
+        const color = e.target.value;
+        previewImage(color);
+      };
+      inputColor.onchange = onChange;
+      inputText.onchange = onChange;
+
+      const canvas = document.getElementById("preview");
+
+      const changePreviewSize = (x = 120, y = 120) => {
+        canvas.width = x;
+        canvas.height = y;
+      };
+      changePreviewSize(750, 1334);
+      const previewImage = (color = "#ffffff") => {
+        inputColor.value = color;
+        inputText.value = color;
+
+        context = canvas.getContext("2d");
+        context.beginPath();
+        context.fillStyle = color;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+      };
+      previewImage("#123abc");
+
+      const saveCanvas = () => {
+        if (canvas.msToBlob) {
+          const blob = canvas.msToBlob();
+          window.navigator.msSaveBlob(blob, "download.png");
+        } else {
+          const a = document.createElement("a");
+          a.href = canvas.toDataURL("image/png");
+          a.download = "download.png";
+          a.click();
+        }
+      };
+      document.getElementById("download").onclick = saveCanvas;
+    </script>
+  </body>
+</html>
