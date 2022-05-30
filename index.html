@@ -8,13 +8,13 @@
       body {
         text-align: center;
       }
-      #previewWrap {
+      /* #previewWrap {
         height: 120px;
         width: 120px;
         overflow: hidden;
         margin: 0 auto;
         border: 1px solid #333;
-      }
+      } */
       #preview {
         display: none;
       }
@@ -25,25 +25,24 @@
       <p>choose color</p>
       <input type="color" id="inputColor" />
       <span>or</span>
-      <input type="text" id="inputText" placeholder="#123abc" />
+      <input type="text" id="inputText" placeholder="#f09199" />
     </div>
     <div>
       <p>choose size</p>
       <select id="size">
         <option value="{y:1334,x:750}">iPhoneSE2(1334x750)</option>
+        <option value="{y:1024,x:1024}">スクエア(1024x1024)</option>
       </select>
     </div>
     <div>
       <p>preview</p>
-      <div id="previewWrap">
-        <img src="" id="previewImg"></img>
-      </div>
+      <img src="" id="previewImg"></img>
       <canvas id="preview"></canvas>
     </div>
-    <div>
+    <!-- <div>
       <p>download</p>
       <button type="button" id="download">save image</button>
-    </div>
+    </div> -->
 
     <script>
       const inputColor = document.getElementById("inputColor");
@@ -54,6 +53,14 @@
       };
       inputColor.onchange = onChange;
       inputText.onchange = onChange;
+
+      const size = document.getElementById("size");
+      const onChangeSize = function(e) {
+        const sizeJson = e.target.value;
+        const {x, y} = JSON.parse(sizeJson);
+        changePreviewSize(x, y);
+      };
+      size.onchange = onChangeSize;
 
       const canvas = document.getElementById("preview");
 
@@ -73,7 +80,7 @@
 
         previewImg.src = canvas.toDataURL("image/png");
       };
-      previewImage("#123abc");
+      previewImage("#f09199");
 
       const saveCanvas = () => {
         if (canvas.msToBlob) {
