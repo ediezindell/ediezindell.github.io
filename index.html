@@ -1,86 +1,117 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Color Wallpaper</title>
-    <style>
-      body {
-        text-align: center;
-      }
-      #previewWrap {
-        height: 120px;
-        width: 120px;
-        overflow: hidden;
-        margin: 0 auto;
-        border: 1px solid #333;
-      }
-    </style>
-  </head>
-  <body>
-    <div>
-      <p>choose color</p>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Wallpaper</title>
+  <style>
+    body {
+      text-align: center;
+    }
+
+    #inputWrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #inputSpan {
+      display: inline-block;
+      padding: 5px;
+    }
+
+    #inputText {
+      font-size: 16px;
+    }
+
+    #preview {
+      display: none;
+    }
+
+    #previewWrap {
+      display: flex;
+      justify-content: center;
+      transform: scale(0.25);
+      transform-origin: top;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <p>choose color</p>
+    <div id="inputWrap">
       <input type="color" id="inputColor" />
-      <span>or</span>
-      <input type="text" id="inputText" placeholder="#123abc" />
+      <span id="inputSpan">or</span>
+      <input type="text" id="inputText" placeholder="#f09199" maxlength="7" />
     </div>
-    <div>
-      <p>choose size</p>
-      <select id="size">
-        <option value="{y:1334,x:750}">iPhoneSE2(1334x750)</option>
-      </select>
+  </div>
+  <div>
+    <p>choose size</p>
+    <select id="size">
+      <option value='{"y":1334,"x":750}'>iPhoneSE2(1334x750)</option>
+      <option value='{"y":400,"x":400}'>Twitterアイコン(400x400)</option>
+      <option value='{"y":500,"x":1500}'>Twitterヘッダー(500x1500)</option>
+    </select>
+  </div>
+  <div>
+    <p>preview</p>
+    <div id="previewWrap">
+      <img src="" id="previewImg"></img>
     </div>
-    <div>
-      <p>preview</p>
-      <div id="previewWrap">
-        <canvas id="preview"></canvas>
-      </div>
-    </div>
-    <div>
-      <p>download</p>
-      <button type="button" id="download">save image</button>
-    </div>
+    <canvas id="preview"></canvas>
+  </div>
 
-    <script>
-      const inputColor = document.getElementById("inputColor");
-      const inputText = document.getElementById("inputText");
-      const onChange = function (e) {
-        const color = e.target.value;
+  <script>
+    const inputColor = document.getElementById("inputColor");
+    const inputText = document.getElementById("inputText");
+    const canvas = document.getElementById("preview");
+    const size = document.getElementById("size");
+
+    const previewImage = (color) => {
+      inputColor.value = color;
+      inputText.value = color;
+
+      context = canvas.getContext("2d");
+      context.beginPath();
+      context.fillStyle = color;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      previewImg.src = canvas.toDataURL("image/png");
+    };
+    previewImage("#f09199");
+
+    const onChange = function (e) {
+      const color = e.target.value;
+      if (/#[0-9a-fA-F]{6}/.test(color)) {
         previewImage(color);
-      };
-      inputColor.onchange = onChange;
-      inputText.onchange = onChange;
+      } else if (color.length === 7) {
+        alert("color code format error!\nexample: #ff00cc");
+      }
+    };
+    inputColor.onchange = onChange;
+    inputText.onkeyup = onChange;
 
-      const canvas = document.getElementById("preview");
-
-      const changePreviewSize = (x = 120, y = 120) => {
+    const changePreviewSize = (x, y) => {
+      if (x && y) {
         canvas.width = x;
         canvas.height = y;
-      };
-      changePreviewSize(750, 1334);
-      const previewImage = (color = "#ffffff") => {
-        inputColor.value = color;
-        inputText.value = color;
+        previewImage(inputText.value);
+      }
+    };
+    changePreviewSize(750, 1334);
 
-        context = canvas.getContext("2d");
-        context.beginPath();
-        context.fillStyle = color;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-      };
-      previewImage("#123abc");
+    const onChangeSize = function (e) {
+      const sizeJson = e.target.value;
+      const {
+        x,
+        y
+      } = JSON.parse(sizeJson);
+      changePreviewSize(x, y);
+    };
+    size.onchange = onChangeSize;
+  </script>
+</body>
 
-      const saveCanvas = () => {
-        if (canvas.msToBlob) {
-          const blob = canvas.msToBlob();
-          window.navigator.msSaveBlob(blob, "download.png");
-        } else {
-          const a = document.createElement("a");
-          a.href = canvas.toDataURL("image/png");
-          a.download = "download.png";
-          a.click();
-        }
-      };
-      document.getElementById("download").onclick = saveCanvas;
-    </script>
-  </body>
 </html>
