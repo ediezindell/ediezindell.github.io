@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>文字列を各種caseに変換する</title>
+  <style>
+    main {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    textarea {
+      flex: 1;
+    }
+
+    section {
+      display: grid;
+      grid-template-columns: 1fr 2fr 60px;
+      gap: 12px;
+    }
+
+    h2 {
+      flex: 1;
+    }
+
+    button {}
+  </style>
+</head>
+
+<body>
+  <h1>文字列を各種caseに変換する</h1>
+  <main>
+    <section>
+      <h2>input area</h2>
+      <textarea data-selector="input"></textarea>
+    </section>
+    <section>
+      <h2>lowerCamelCase</h2>
+      <textarea data-selector="lowerCamel" /></textarea>
+      <button type="button" data-type="lowerCamel">COPY</button>
+    </section>
+    <section>
+      <h2>UpperCamelCase</h2>
+      <textarea data-selector="upperCamel" /></textarea>
+      <button type="button" data-type="upperCamel">COPY</button>
+    </section>
+    <section>
+      <h2>snake_case</h2>
+      <textarea data-selector="snakeCase" /></textarea>
+      <button type="button" data-type="snakeCase">COPY</button>
+    </section>
+    <section>
+      <h2>CONST_CASE</h2>
+      <textarea data-selector="constCase" /></textarea>
+      <button type="button" data-type="constCase">COPY</button>
+    </section>
+    <section>
+      <h2>kebab-case</h2>
+      <textarea data-selector="kebabCase" /></textarea>
+      <button type="button" data-type="kebabCase">COPY</button>
+    </section>
+  </main>
+  <script>
+    // 各caseを `any case` のように通常の英文に変換
+    const toP = (s) =>
+      s
+        .replaceAll(/^([A-Z][_A-Z]*)$/g, (_, m1) => m1.toLowerCase()) // CONST→snake
+        .replaceAll(/[-_]/g, " ") // snake|kebab→paragraph
+        .replaceAll(/([A-Z])/g, (_, m1) => ` ${m1.toLowerCase()}`) // lowerCamel|UpperCamel→paragraph
+        .toLowerCase()
+        .trim();
+
+    const toLowerCamel = (s) =>
+      toP(s).replaceAll(/ ([a-z])/g, (_, m1) => m1.toUpperCase());
+    const toUpperCamel = (s) =>
+      toLowerCamel(s).replace(/^(.)/g, (_, m1) => m1.toUpperCase());
+    const toSnake = (s) => toP(s).replaceAll(" ", "_");
+    const toConst = (s) => toSnake(s).toUpperCase();
+    const toKebab = (s) => toP(s).replaceAll(" ", "-");
+
+    const convert = (text, type) => {
+      switch (type) {
+        case "lowerCamel":
+          return toLowerCamel(text);
+        case "upperCamel":
+          return toUpperCamel(text);
+        case "snakeCase":
+          return toSnake(text);
+        case "constCase":
+          return toConst(text);
+        case "kebabCase":
+          return toKebab(text);
+        default:
+          return text;
+      }
+    };
+
+    const input = document.querySelector("[data-selector=input]");
+
+    input.addEventListener("input", (e) => {
+      const text = e.target.value;
+      [
+        "lowerCamel",
+        "upperCamel",
+        "snakeCase",
+        "constCase",
+        "kebabCase",
+      ].forEach((type) => {
+        document.querySelector(`[data-selector=${type}]`).value = convert(
+          text,
+          type,
+        );
+      });
+    });
+
+    [...document.querySelectorAll("button[data-type]")].forEach((button) => {
+      button.addEventListener("click", () => {
+        const type = button.dataset.type;
+        const input = document.querySelector(`[data-selector=${type}]`);
+        navigator.clipboard
+          .writeText(input.value)
+          .then(() => alert("copied!"));
+      });
+    });
+  </script>
+</body>
+
+</html>
